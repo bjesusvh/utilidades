@@ -2,3 +2,4 @@
 
 export(multiplot)
 export(plotMPS)
+export(plotMPS2)
