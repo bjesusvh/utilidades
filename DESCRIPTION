@@ -1,0 +1,11 @@
+Package: utilidades
+Type: Package
+Title: Funciones de uso personal
+Version: 0.1.0
+Author: Bartolo de Jesús Villar-Hernández
+Maintainer: Bartolo de Jesús Villar-Hernández <bjesusvh@gmail.com>
+Description: Un paquete de R que contiene utilidades/funciones de uso personal frecuente.
+License: GPL-3
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 7.2.3
