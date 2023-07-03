@@ -2,4 +2,5 @@
 
 export(multiplot)
 export(plotMPS)
-export(plotMPS2)
+export(plotMPSFromG)
+export(plotMPSFromPed)

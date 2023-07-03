@@ -3,20 +3,22 @@
 #' Función que gráfica las salidas de la función ApproxMPS.
 #'
 #' @param MPSObject Un objeto de clase MPS (ApproxMPS).
+#' @param Sim vector de similaridades promedio para cada línea candidata.
 #' @param qLoss Cuantil para la pérdida.
-#' @param qSimilarity Cuantil para la similaridad.
+#' @param qSimI Cuantil inferior para la similaridad.
+#' @param qSimS Cuantil superior para la similaridad.
 #' @return Un gráfico de la salida de MPS.
 #' @export
-plotMPS2 <- function(MPSObject, qLoss, qSimilarity){
+plotMPSFromG <- function(MPSObject, Sim, qLoss, qSimI, qSimS){
   
   df <- data.frame(loss = MPSObject$loss, 
                    ranking = MPSObject$ranking, 
-                   aveSim = MPSObject$aveSim)
+                   aveSim = Sim)
   
-  D <- quantile(df$aveSim, probs = qSimilarity)
+  D <- quantile(df$aveSim, probs = c(qSimI, qSimS))
   L <- quantile(df$loss, probs = qLoss)
-  best <- df$aveSim <= D & df$loss <= L
-  
+  best <- (df$aveSim >= D[1] & df$aveSim <= D[2]) & df$loss <= L
+    
   NSelected <- sum(best)
   prom_best <- colMeans(MPSObject$yHat[best, ])
   prom_loss <- colMeans(MPSObject$yHat[MPSObject$ranking %in% 1:NSelected, ])
@@ -34,14 +36,14 @@ plotMPS2 <- function(MPSObject, qLoss, qSimilarity){
   abline(v = L, col = "red", lty = 2)
   
   # Histogram of average distances
-  hist(MPSObject$aveSim, breaks = 30,
+  hist(Sim, breaks = 30,
        main = "(b)",
        xlab = "Average similarity")
   abline(v = D, col = "red", lty = 2)
   
   
   # Plot selected
-  plot(MPSObject$aveSim, MPSObject$loss, axes = FALSE, 
+  plot(Sim, MPSObject$loss, axes = FALSE, 
        ylab = "Expected loss",
        xlab = "Average similarity",
        col = ifelse(best, "black", "gray"),
@@ -50,8 +52,8 @@ plotMPS2 <- function(MPSObject, qLoss, qSimilarity){
   axis(1)
   axis(2)
   
-  text(MPSObject$aveSim, MPSObject$loss,
-       labels = (1:length(MPSObject$aveSim)),
+  text(Sim, MPSObject$loss,
+       labels = (1:length(Sim)),
        col = ifelse(best, "black", "gray"),
        cex = 0.6, pos = 3)
   
