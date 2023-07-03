@@ -4,10 +4,12 @@
 \alias{plotMPS}
 \title{Plot an object of class MPS}
 \usage{
-plotMPS(MPSObject, qLoss, qDistance)
+plotMPS(MPSObject, Dist, qLoss, qDistance)
 }
 \arguments{
 \item{MPSObject}{Un objeto de clase MPS (FasMPS o EvalMPS).}
+
+\item{Dist}{vector de distancias promedio de cada línea candidata.}
 
 \item{qLoss}{Cuantil para la pérdida.}
 

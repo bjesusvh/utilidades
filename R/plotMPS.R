@@ -3,15 +3,17 @@
 #' Función que gráfica las salidas de la función MPS.
 #'
 #' @param MPSObject Un objeto de clase MPS (FasMPS o EvalMPS).
+#' @param Dist vector de distancias promedio de cada línea candidata.
 #' @param qLoss Cuantil para la pérdida.
 #' @param qDistance Cuantil para la distancia.
 #' @return Un gráfico de la salida de MPS.
 #' @export
-plotMPS <- function(MPSObject, qLoss, qDistance){
+plotMPS <- function(MPSObject, Dist, qLoss, qDistance){
   
-  df <- data.frame(loss = MPSObject$loss, 
+  df <- data.frame(line = 1:length(Dist),
+                   loss = MPSObject$loss, 
                    ranking = MPSObject$ranking, 
-                   aveDist = MPSObject$aveDist)
+                   aveDist = Dist)
   
   D <- quantile(df$aveDist, probs = qDistance)
   L <- quantile(df$loss, probs = qLoss)
@@ -27,6 +29,12 @@ plotMPS <- function(MPSObject, qLoss, qDistance){
   
   
   par(mfrow = c(2,2))
+  # 
+  # df2 <- df[order(df$loss,decreasing = FALSE),]   
+  # 
+  # barplot(df2$loss, names.arg = df2$line, 
+  #         horiz = TRUE, las = 1, cex.names=.2)
+  
   # Histogram of eloss
   hist(MPSObject$loss, breaks = 30,
        main = "(a)",
@@ -34,14 +42,14 @@ plotMPS <- function(MPSObject, qLoss, qDistance){
   abline(v = L, col = "red", lty = 2)
   
   # Histogram of average distances
-  hist(MPSObject$aveDist, breaks = 30,
+  hist(Dist, breaks = 30,
        main = "(b)",
        xlab = "Average distances")
   abline(v = D, col = "red", lty = 2)
   
   
   # Plot selected
-  plot(MPSObject$aveDist, MPSObject$loss, axes = FALSE, 
+  plot(Dist, MPSObject$loss, axes = FALSE, 
        ylab = "Expected loss",
        xlab = "Average distance",
        col = ifelse(best, "black", "gray"),
@@ -50,8 +58,8 @@ plotMPS <- function(MPSObject, qLoss, qDistance){
   axis(1)
   axis(2)
   
-  text(MPSObject$aveDist, MPSObject$loss,
-       labels = (1:length(MPSObject$aveDist)),
+  text(Dist, MPSObject$loss,
+       labels = (1:length(Dist)),
        col = ifelse(best, "black", "gray"),
        cex = 0.6, pos = 3)
   
