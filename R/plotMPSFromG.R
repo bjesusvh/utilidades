@@ -32,20 +32,20 @@ plotMPSFromG <- function(MPSObject, Sim, qLoss, qSimI, qSimS){
   # Histogram of eloss
   hist(MPSObject$loss, breaks = 30,
        main = "(a)",
-       xlab = "Posterior expected loss")
+       xlab = "Expected loss")
   abline(v = L, col = "red", lty = 2)
   
   # Histogram of average distances
   hist(Sim, breaks = 30,
        main = "(b)",
-       xlab = "Average similarity")
+       xlab = "Average relationship")
   abline(v = D, col = "red", lty = 2)
   
   
   # Plot selected
   plot(Sim, MPSObject$loss, axes = FALSE, 
        ylab = "Expected loss",
-       xlab = "Average similarity",
+       xlab = "Average relationship",
        col = ifelse(best, "black", "gray"),
        pch = 19, 
        main = "(c)")
