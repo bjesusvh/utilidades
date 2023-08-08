@@ -4,7 +4,7 @@
 \alias{plotMPS}
 \title{Plot an object of class MPS}
 \usage{
-plotMPS(MPSObject, Dist, qLoss, qDistance)
+plotMPS(MPSObject, Dist, qLoss, qDistance, B0)
 }
 \arguments{
 \item{MPSObject}{Un objeto de clase MPS (FasMPS o EvalMPS).}
@@ -14,6 +14,8 @@ plotMPS(MPSObject, Dist, qLoss, qDistance)
 \item{qLoss}{Cuantil para la pérdida.}
 
 \item{qDistance}{Cuantil para la distancia.}
+
+\item{B0}{(vector) with the overall mean of each trait of length equal to number of traits (\eqn{t}).}
 }
 \value{
 Un gráfico de la salida de MPS.

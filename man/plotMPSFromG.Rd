@@ -4,7 +4,7 @@
 \alias{plotMPSFromG}
 \title{Plot an object of class MPS}
 \usage{
-plotMPSFromG(MPSObject, Sim, qLoss, qSimI, qSimS)
+plotMPSFromG(MPSObject, Sim, qLoss, qSimI, B0)
 }
 \arguments{
 \item{MPSObject}{Un objeto de clase MPS (ApproxMPS).}
@@ -14,6 +14,8 @@ plotMPSFromG(MPSObject, Sim, qLoss, qSimI, qSimS)
 \item{qLoss}{Cuantil para la pérdida.}
 
 \item{qSimI}{Cuantil inferior para la similaridad.}
+
+\item{B0}{(vector) with the overall mean of each trait of length equal to number of traits (\eqn{t}).}
 
 \item{qSimS}{Cuantil superior para la similaridad.}
 }
